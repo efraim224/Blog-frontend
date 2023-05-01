@@ -1,19 +1,23 @@
+import { Link } from "react-router-dom"
+
 const Navbar = (props) => {
     return (
-        <ul>
-            <div class="topnav">
-                <div class="topnav-left">
+        <header>
+            <ul>
+                <div class="topnav">
+                    <div class="topnav-left">
 
-                    <li class="menu-item"><a href="">Home</a></li>
-                    <li class="menu-item"><a href="">About me</a></li>
-                    <li class="menu-item"><a href="">Contact</a></li>
-                    </div>
-                    <div class="topnav-right">
-                    <li class="menu-item"><a href="" class="bar-right">Login</a></li>
-                    </div>
-    
-            </div>
-        </ul>
+                        <li class="menu-item"><Link to="/home">Home</Link></li>
+                        <li class="menu-item"><Link to="/about">About me</Link></li>
+                        <li class="menu-item"><Link to="/contact">Contact</Link></li>
+                        </div>
+                        <div class="topnav-right">
+                        <li class="menu-item"><Link to="/home" class="bar-right">Login</Link></li>
+                        </div>
+        
+                </div>
+            </ul>
+        </header>
     )
 }
 

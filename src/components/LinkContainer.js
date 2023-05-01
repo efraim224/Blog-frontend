@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 const LinkContainer = (props) => {
     return (
@@ -5,12 +6,13 @@ const LinkContainer = (props) => {
         <ul>
             <h1><u>{props.title}</u></h1>
             {props.links.map(content => {
-                return <a href=""><li>Link</li></a>
+                return <Link to="/home"><li>Link</li></Link>
             })}
         </ul>
 
     </div>
     )
 }
+
 
 export default LinkContainer
