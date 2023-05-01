@@ -1,6 +1,6 @@
 
 
-const NewPostForm = () => {
+const NewPost = () => {
 
     return (
         <>
@@ -20,4 +20,4 @@ const NewPostForm = () => {
 }
 
 
-export default NewPostForm
+export default NewPost

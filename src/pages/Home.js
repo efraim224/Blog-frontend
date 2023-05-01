@@ -1,5 +1,5 @@
-import Post from "./Post"
-import LinkContainer from './LinkContainer';
+import Post from "../components/Post"
+import LinkContainer from '../components/LinkContainer';
 import { Link } from 'react-router-dom';
 
 
@@ -19,7 +19,7 @@ const posts = [
 
 
 
-const PostContainer = () => {
+const Home = () => {
     return (
         <>
             <main>
@@ -42,4 +42,4 @@ const PostContainer = () => {
     )
 }
 
-export default PostContainer
+export default Home

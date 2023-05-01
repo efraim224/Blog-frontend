@@ -1,9 +1,9 @@
 import './App.css';
-import Contact from './components/Contact'
-import About from './components/About';
-import PostContainer from './components/PostContainer';
+import Contact from './pages/Contact'
+import About from './pages/About';
+import Home from './pages/Home';
 import { Routes, Route } from 'react-router-dom';
-import NewPostForm from './components/NewPostForm';
+import NewPost from './pages/NewPost';
 import Layout from './components/Layout'
  
 
@@ -15,10 +15,10 @@ function App() {
         <div class="grid-container">
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route index path="/home" element={<PostContainer/>}/>
+                <Route index path="/home" element={<Home/>}/>
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
-                <Route path='/posts/add' element={<NewPostForm/>}/>
+                <Route path='/posts/add' element={<NewPost/>}/>
               </Route>
             </Routes>
         </div>
