@@ -1,5 +1,5 @@
 
-const Post = (props) => {
+const PostPreview = (props) => {
     return (
         <div className="post">
             <div className="content">
@@ -11,4 +11,4 @@ const Post = (props) => {
     )
 }
 
-export default Post
+export default PostPreview

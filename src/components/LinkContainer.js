@@ -6,7 +6,7 @@ const LinkContainer = (props) => {
         <ul>
             <h1><u>{props.title}</u></h1>
             {props.links.map(content => {
-                return <Link to="/home"><li>Link</li></Link>
+                return <Link to="/"><li>Link</li></Link>
             })}
         </ul>
 

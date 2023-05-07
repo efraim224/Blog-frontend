@@ -7,12 +7,12 @@ const Navbar = (props) => {
                 <div class="topnav">
                     <div class="topnav-left">
 
-                        <li class="menu-item"><Link to="/home">Home</Link></li>
+                        <li class="menu-item"><Link to="/">Home</Link></li>
                         <li class="menu-item"><Link to="/about">About me</Link></li>
                         <li class="menu-item"><Link to="/contact">Contact</Link></li>
                         </div>
                         <div class="topnav-right">
-                        <li class="menu-item"><Link to="/home" class="bar-right">Login</Link></li>
+                        <li class="menu-item"><Link to="/" class="bar-right">Login</Link></li>
                         </div>
         
                 </div>
