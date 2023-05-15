@@ -10,7 +10,7 @@ const Links = [
 
 const Home = () => {
     return (
-        <>
+        <div className="home-container">
             <main>
                 <div className="title">
                     <h1>Some title for the site</h1>
@@ -27,7 +27,7 @@ const Home = () => {
                 return <LinkContainer {...item} />
                 })}
           </right>
-        </>
+        </div>
     )
 }
 

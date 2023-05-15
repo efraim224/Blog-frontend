@@ -12,7 +12,7 @@ const Navbar = (props) => {
                         <li class="menu-item"><Link to="/contact">Contact</Link></li>
                         </div>
                         <div class="topnav-right">
-                        <li class="menu-item"><Link to="/" class="bar-right">Login</Link></li>
+                        <li class="menu-item"><Link to="/login" class="bar-right">Login</Link></li>
                         </div>
         
                 </div>
