@@ -1,9 +1,10 @@
-import PostPreview from "../components/PostPreview"
 import LinkContainer from '../components/LinkContainer';
 import { Link } from 'react-router-dom';
 // import { posts } from "../content/posts";
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import PostCard from "../components/PostCard"
+
 
 const Links = [
     { title: "Popular posts", links: ["asdf", "asdf"] },
@@ -39,7 +40,7 @@ const Home = () => {
                     </Link>
                 </div>
                 {postsData.map(item => {
-                    return <PostPreview {...item} />
+                    return <PostCard {...item} />
                 })}
             </main>
             <right>
