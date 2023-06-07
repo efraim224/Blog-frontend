@@ -8,6 +8,7 @@ import Layout from './components/Layout'
 import Post from './pages/Post';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
+import SignUp from './pages/Signup';
  
 
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/add' element={<NewPost/>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='/signup' element={<SignUp/>}/>
                 <Route path='/posts/:id' element={<Post/>}/>
                 <Route path='*' element={<NotFound/>}/>
               </Route>
