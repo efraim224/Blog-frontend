@@ -12,16 +12,45 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { auto } from '@popperjs/core';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../providers/AuthProvider';
 
 
 export default function SignUp() {
+  const navigate = useNavigate()
+  const { logIn } = React.useContext(AuthContext);
+
+  const backLink = "http://localhost:5000/signup"
+
+  const handleLogin = async (data) => {
+    try {
+      const res = await fetch(backLink, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(res)
+      logIn()
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    
+    const payload = {
+      username: data.get('email'),
       password: data.get('password'),
-    });
+    }
+    handleLogin(payload)
   };
 
   return (
