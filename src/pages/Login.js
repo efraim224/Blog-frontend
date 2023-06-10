@@ -37,6 +37,38 @@ export default function Login() {
     return /\S+@\S+\.\S+/.test(email);
   }
 
+  function validPass(pass) {
+    const uppercaseRegExp = /(?=.*?[A-Z])/;
+    const lowercaseRegExp = /(?=.*?[a-z])/;
+    const digitsRegExp = /(?=.*?[0-9])/;
+    const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+    const minLengthRegExp = /.{8,}/;
+    const passwordLength = pass.length;
+    const uppercasePassword = uppercaseRegExp.test(pass);
+    const lowercasePassword = lowercaseRegExp.test(pass);
+    const digitsPassword = digitsRegExp.test(pass);
+    const specialCharPassword = specialCharRegExp.test(pass);
+    const minLengthPassword = minLengthRegExp.test(pass);
+    let errMsg = "";
+    if (passwordLength === 0) {
+      errMsg = "Password is empty";
+    } else if (!uppercasePassword) {
+      errMsg = "At least one Uppercase";
+    } else if (!lowercasePassword) {
+      errMsg = "At least one Lowercase";
+    } else if (!digitsPassword) {
+      errMsg = "At least one digit";
+    } else if (!specialCharPassword) {
+      errMsg = "At least one Special Characters";
+    } else if (!minLengthPassword) {
+      errMsg = "At least minumum 8 characters";
+    } else {
+      errMsg = "";
+    }
+
+    return errMsg
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,7 +78,7 @@ export default function Login() {
     }
 
     // if (isValidEmail(payload.username)) {
-      handleLogin(payload)
+    handleLogin(payload)
     // }
   };
 

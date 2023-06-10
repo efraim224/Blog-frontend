@@ -84,7 +84,7 @@ export const NavbarCard = () => {
 
     const handleLogout = (link) => {
         try {
-            axios.post(link)
+            axios.post(link, { withCredentials: true })
             removeCookie('session_id')
             logOut()
             navigate("/")
