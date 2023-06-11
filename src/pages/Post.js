@@ -9,7 +9,7 @@ const Post = () => {
 
     const params = useParams();
     const postId = params.id;
-    const linkPost = `http://localhost:5000/posts/${postId}`
+    const linkPost = `${process.env.REACT_APP_BACK_API}/posts/${postId}`
 
     const [post, setpost] = useState([]);
     const getData = async () => {

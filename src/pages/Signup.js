@@ -20,7 +20,7 @@ export default function SignUp() {
   const navigate = useNavigate()
   const { logIn } = React.useContext(AuthContext);
 
-  const backLink = "http://localhost:5000/signup"
+  const backLink = `${process.env.REACT_APP_BACK_API}/signup`
 
   const handleLogin = async (data) => {
     try {

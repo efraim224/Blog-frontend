@@ -11,7 +11,7 @@ const Links = [
     { title: "Hot news", links: ["asdf", "asdf"] }
 ]
 
-const postsLink = "http://localhost:5000/posts"
+const postsLink = `${process.env.REACT_APP_BACK_API}/posts`
 
 const Home = () => {
 

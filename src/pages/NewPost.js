@@ -2,7 +2,7 @@ import axios from "axios";
 
 const NewPost = () => {
 
-    const link = "http://localhost:5000/posts/"
+    const link = `${process.env.REACT_APP_BACK_API}/posts`
     const handleSubmit = (event) => {
         event.preventDefault();
         const title = event.target.form_title.value;
@@ -27,11 +27,11 @@ const NewPost = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Title:
-                    <input type="text" id="form_title"/>
+                    <input type="text" id="form_title" />
                 </label>
                 <label>
                     Content:
-                    <input type="textarea" id="form_content" rows={5}  cols={5}/>
+                    <input type="textarea" id="form_content" rows={5} cols={5} />
                 </label>
                 <input type="submit" value="Submit" />
             </form>

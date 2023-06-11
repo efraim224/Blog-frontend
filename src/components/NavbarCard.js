@@ -35,8 +35,7 @@ const rightButtons = [
     }
 ]
 
-const backLink = "http://localhost:5000/logout"
-
+const backLink = `${process.env.REACT_APP_BACK_API}/logout`
 const settings = [
     {
         "name": 'Profile',

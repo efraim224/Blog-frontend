@@ -6,23 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 
+// todo: solve cors problem when moving from login to homepage.
+
 export default function Login() {
 
   const { logIn } = React.useContext(AuthContext);
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
-  const backLink = "http://localhost:5000/login"
+  const backLink = `${process.env.REACT_APP_BACK_API}/login`
+
   const handleLogin = async (data) => {
     try {
-      const res = await fetch(backLink, {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const reqData = JSON.stringify(data)
+      const res = await axios.post(backLink, reqData)
 
       console.log(res);
       logIn();
@@ -37,7 +33,7 @@ export default function Login() {
     return /\S+@\S+\.\S+/.test(email);
   }
 
-  function validPass(pass) {
+  function isValidPass(pass) {
     const uppercaseRegExp = /(?=.*?[A-Z])/;
     const lowercaseRegExp = /(?=.*?[a-z])/;
     const digitsRegExp = /(?=.*?[0-9])/;
