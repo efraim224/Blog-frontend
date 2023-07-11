@@ -6,23 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 
-// todo: solve cors problem when moving from login to homepage.
-
 export default function Login() {
 
   const { logIn } = React.useContext(AuthContext);
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const backLink = `${process.env.REACT_APP_BACK_API}/login`
-
   const handleLogin = async (data) => {
     try {
-      const reqData = JSON.stringify(data)
-      const res = await axios.post(backLink, reqData)
-
-      console.log(res);
-      logIn();
-      navigate("/")
+      const res = await axios.post(backLink, data)
+      if (res.status === 200) {
+        logIn();
+        navigate("/")
+      }
     } catch (error) {
       console.log(error)
     }
@@ -120,10 +116,10 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth

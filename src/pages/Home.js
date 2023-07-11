@@ -1,9 +1,10 @@
 import LinkContainer from '../components/LinkContainer';
 import { Link } from 'react-router-dom';
 // import { posts } from "../content/posts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import PostCard from "../components/PostCard"
+import { AuthContext } from '../providers/AuthProvider';
 
 
 const Links = [
@@ -14,6 +15,8 @@ const Links = [
 const postsLink = `${process.env.REACT_APP_BACK_API}/posts`
 
 const Home = () => {
+
+    const { isAuthenticated } = useContext(AuthContext);
 
     const [postsData, setpostsData] = useState([]);
     const getData = async () => {
@@ -35,9 +38,9 @@ const Home = () => {
             <main>
                 <div className="title">
                     <h1>Some title for the site</h1>
-                    <Link to="/add">
+                    {isAuthenticated && <Link to="/add">
                         <button>Create new post</button>
-                    </Link>
+                    </Link>}
                 </div>
                 {postsData.map(item => {
                     return <PostCard {...item} />

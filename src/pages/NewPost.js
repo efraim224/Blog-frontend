@@ -1,41 +1,69 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NewPost = () => {
 
-    const link = `${process.env.REACT_APP_BACK_API}/posts`
+    const location = useLocation();
+
+
+    const initialState = location.state || {};
+    const initialTitle = initialState.title || "";
+    const initialContent = initialState.content || "";
+
+    const postId = initialState.postId || null;
+    const [title, setTitle] = useState(initialTitle);
+    const [content, setContent] = useState(initialContent);
+
+    useEffect(() => {
+        setTitle(initialTitle);
+        setContent(initialContent);
+    }, [initialTitle, initialContent]);
+
+
+    const navigate = useNavigate();
+
+    const link = `${process.env.REACT_APP_BACK_API}/posts/`
     const handleSubmit = (event) => {
         event.preventDefault();
-        const title = event.target.form_title.value;
-        const content = event.target.form_content.value;
-        const fetchData = async () => {
+        const updatePostAsync = async () => {
             try {
-                axios.post(link, {
+                let data = {
                     "title": title,
                     "content": content
-                })
+                }
+
+                if (postId !== null) {
+                    data.postId = postId;
+                }
+
+                await axios.post(link, data, { withCredentials: true })
+                if (window.history.state?.key) {
+                    navigate(-1); // Go back to previous page
+                } else {
+                    navigate('/'); // Navigate to root page
+                }
             }
             catch (e) {
                 console.log(e)
             }
         }
 
-        fetchData();
+        updatePostAsync();
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" id="form_title" />
-                </label>
-                <label>
-                    Content:
-                    <input type="textarea" id="form_content" rows={5} cols={5} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
-        </>
+        <form onSubmit={handleSubmit}>
+            <label>
+                Title:
+                <input type="text" id="form_title" value={title} onChange={e => setTitle(e.target.value)} />
+            </label>
+            <label>
+                Content:
+                <textarea id="form_content" rows={5} cols={5} value={content} onChange={e => setContent(e.target.value)} />
+            </label>
+            <input type="submit" value="Submit" />
+        </form>
     )
 }
 

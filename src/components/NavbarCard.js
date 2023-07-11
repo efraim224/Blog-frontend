@@ -35,23 +35,25 @@ const rightButtons = [
     }
 ]
 
-const backLink = `${process.env.REACT_APP_BACK_API}/logout`
+const logoutLink = `${process.env.REACT_APP_BACK_API}/logout`
+// const myPostsLink = `${process.env.REACT_APP_BACK_API}/myposts`
+
 const settings = [
     {
         "name": 'Profile',
         "link": "/"
     },
     {
-        "name": 'Account',
-        "link": "/"
+        "name": 'favorites',
+        "link": "/favorites"
     },
     {
-        "name": 'Dashboard',
-        "link": "/"
+        "name": 'My posts',
+        "link": '/myposts'
     },
     {
         "name": 'Logout',
-        "link": backLink
+        "link": logoutLink
     },
     
 ]
@@ -81,12 +83,14 @@ export const NavbarCard = () => {
 
     const [cookie, setCookie, removeCookie] = useCookies(['session_id']);
 
-    const handleLogout = (link) => {
+    const handleLogout = async (link) => {
         try {
-            axios.post(link, { withCredentials: true })
+            const res = await axios.post(link, { withCredentials: true })
             removeCookie('session_id')
-            logOut()
-            navigate("/")
+            if (res.status === 200) {
+                logOut()
+                navigate("/")
+            }
         } catch (error) {
             console.log(error)
         }
@@ -139,6 +143,9 @@ export const NavbarCard = () => {
                                             handleCloseUserMenu()
                                             if (setting.name === 'Logout') {
                                                 handleLogout(setting.link)
+                                            }
+                                            else {
+                                                navigate(setting.link)
                                             }
                                             }}>
                                             <Typography textAlign="center">{setting.name}</Typography>
