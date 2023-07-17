@@ -4,6 +4,7 @@ import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 export default function Login() {
@@ -14,52 +15,24 @@ export default function Login() {
   const backLink = `${process.env.REACT_APP_BACK_API}/login`
   const handleLogin = async (data) => {
     try {
+      setLoading(true)
       const res = await axios.post(backLink, data)
       if (res.status === 200) {
         logIn();
         navigate("/")
       }
+      else {
+        setMessage("Invalid username or password")
+        setLoading(false)
+      }
     } catch (error) {
-      console.log(error)
+      setLoading(false)
+      setMessage("Invalid username or password")
     }
   }
 
+  const [message, setMessage] = React.useState("");
 
-  function isValidEmail(email) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
-
-  function isValidPass(pass) {
-    const uppercaseRegExp = /(?=.*?[A-Z])/;
-    const lowercaseRegExp = /(?=.*?[a-z])/;
-    const digitsRegExp = /(?=.*?[0-9])/;
-    const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
-    const minLengthRegExp = /.{8,}/;
-    const passwordLength = pass.length;
-    const uppercasePassword = uppercaseRegExp.test(pass);
-    const lowercasePassword = lowercaseRegExp.test(pass);
-    const digitsPassword = digitsRegExp.test(pass);
-    const specialCharPassword = specialCharRegExp.test(pass);
-    const minLengthPassword = minLengthRegExp.test(pass);
-    let errMsg = "";
-    if (passwordLength === 0) {
-      errMsg = "Password is empty";
-    } else if (!uppercasePassword) {
-      errMsg = "At least one Uppercase";
-    } else if (!lowercasePassword) {
-      errMsg = "At least one Lowercase";
-    } else if (!digitsPassword) {
-      errMsg = "At least one digit";
-    } else if (!specialCharPassword) {
-      errMsg = "At least one Special Characters";
-    } else if (!minLengthPassword) {
-      errMsg = "At least minumum 8 characters";
-    } else {
-      errMsg = "";
-    }
-
-    return errMsg
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,10 +42,10 @@ export default function Login() {
       password: data.get('password'),
     }
 
-    // if (isValidEmail(payload.username)) {
     handleLogin(payload)
-    // }
   };
+
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <Container maxWidth="xs">
@@ -128,6 +101,10 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <Typography sx={{ color: 'red' }}>
+            {message}
+          </Typography>
+
           <Grid container>
             <Grid item xs>
               <Link href="/login" variant="body2">
@@ -142,6 +119,7 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
+        {loading && <LinearProgress />}
     </Container>
   );
 }

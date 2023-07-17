@@ -2,29 +2,35 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import Input, { inputClasses } from '@mui/base/Input';
 
 const AddComment = (props) => {
     const backLink = `${process.env.REACT_APP_BACK_API}/comments/${props.postId}`
 
-    const handleClick = () => {
-        console.log(backLink)
-        axios.post(backLink, {commentData}, {
+    const handleClick = async () => {
+        await axios.post(backLink, {commentData}, {
             withCredentials: true, // This allows cookies to be sent
         })
+
+        props.setRefresh(true);
     }
 
     const [commentData, setCommentData] = useState('')
+    const commentRef = useRef(null);
+
 
     const handleChange = (event) => {
         event.preventDefault();
-        console.log(backLink)
         setCommentData(event.target.value)
     }
 
+
+    // was a form before the stack
     return (
-        <form>
+            <Stack direction={"row"} width={1}>
             <Box
                 color={'grey'}
                 component="form"
@@ -41,11 +47,18 @@ const AddComment = (props) => {
                         onChange={handleChange}
                     />
                 </div>
+                
+{/* 
+                 <Input width={1}
+                ref={commentRef}
+                placeholder='write a comment'
+                 id="outlined-start-adornment"
+                 /> */}
             </Box>
-            <Button  sx={{ display: 'inline' }} variant="contained" color="primary" onClick={handleClick}>
+            <Button variant="contained" color="primary" onClick={handleClick}>
                 save
             </Button>
-        </form>
+            </Stack>
     );
 }
 

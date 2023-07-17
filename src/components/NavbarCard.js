@@ -39,14 +39,14 @@ const logoutLink = `${process.env.REACT_APP_BACK_API}/logout`
 // const myPostsLink = `${process.env.REACT_APP_BACK_API}/myposts`
 
 const settings = [
-    {
-        "name": 'Profile',
-        "link": "/"
-    },
-    {
-        "name": 'favorites',
-        "link": "/favorites"
-    },
+    // {
+    //     "name": 'Profile',
+    //     "link": "/"
+    // },
+    // {
+    //     "name": 'favorites',
+    //     "link": "/favorites"
+    // },
     {
         "name": 'My posts',
         "link": '/myposts'
@@ -85,14 +85,16 @@ export const NavbarCard = () => {
 
     const handleLogout = async (link) => {
         try {
-            const res = await axios.post(link, { withCredentials: true })
+            const res = await axios.post(link, {}, { withCredentials: true })
             removeCookie('session_id')
-            if (res.status === 200) {
+            // if (res.status === 200) {
                 logOut()
                 navigate("/")
-            }
+            // }
         } catch (error) {
-            console.log(error)
+            removeCookie('session_id')
+            logOut()
+
         }
     }
   
